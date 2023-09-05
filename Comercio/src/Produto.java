@@ -15,6 +15,7 @@ public class Produto {
     public void setCodigo(String cod){
         this.cod = cod;
     }
+
     public String getCodigo(){
         return cod;
     }

@@ -28,7 +28,7 @@ public class Comercio {
                             adicionar();
                             break;
                         case 3:
-                            // Implementar a remoção de produtos
+                            remover();
                             break;
                         case 4:
                             // Implementar a pesquisa de produtos
@@ -69,8 +69,30 @@ public class Comercio {
 
             // recebendo codigo
             System.out.println("Digite o codigo do produto a ser adicionado no estoque: ");
-            String cod = sc.nextLine();
-            produto1.setCodigo(cod);
+            boolean prosseguir = true;
+            String codigo; 
+            while(prosseguir)
+        {
+            codigo = sc.nextLine();
+            boolean codigoexistente = false;
+            for(Produto i: produtos)
+            {
+                if(codigo.equals(i.getCodigo()))
+                {
+                    System.out.println("\n ERROR: ESSE CODIGO JA EXISTE!\nDIGITE UM CODIGO VALIDO\n");
+                    codigoexistente = true;
+                    break;
+                }
+            }
+            if(!codigoexistente)
+                {
+                    prosseguir = false;
+                    produto1.setCodigo(codigo);
+                    break;
+                }
+            
+
+        }
 
             // recebendo estoque
             System.out.println("Digite a quantidade do produto a ser adicionado no estoque: ");
@@ -118,5 +140,44 @@ public class Comercio {
                 }
             }
     }
-
+    
+    public static void remover(){
+        if(produtos.isEmpty())
+        {
+            System.out.println("\nNenhum produto foi adicionado ainda!\n");
+        }
+        else
+        {
+            System.out.println("\nAqui esta uma lista de todos os produtos que existem dentro do sistema: ");
+                for (Produto i : produtos) 
+                {
+                    i.imprimeProduto();
+                }
+            System.out.println("Digite o codigo do produto que deseja remover: ");
+            String esc;
+            while(true)
+        {
+            esc = sc.nextLine();
+            boolean codigoexistente = false;
+            for(Produto i: produtos)
+            {
+                if(esc.equals(i.cod))
+                {
+                    produtos.remove(i);
+                    System.out.println("\nProduto removido com sucesso!\n");
+                    codigoexistente = true;
+                    break;
+                }
+            }
+            if(!codigoexistente)
+            {
+                {
+                    System.out.println("ERRO: Esse codigo nao existe!\nDigite um codigo valido:");
+                    codigoexistente = false;
+                    
+                }
+            }
+        }
+        }
+    }
 }
