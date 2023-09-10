@@ -37,7 +37,7 @@ public class Comercio {
                         pesquisar();
                         break;
                     case 5:
-                        System.out.println("Saindo do programa...");
+                        System.out.println("Saindo do sistema...");
                         System.exit(0);
 
                     default:
@@ -147,9 +147,9 @@ public class Comercio {
             }
             System.out.println("Digite o codigo do produto que deseja remover: ");
             String esc;
+                            boolean codigoexistente = false;
             while (true) {
                 esc = sc.nextLine();
-                boolean codigoexistente = false;
                 for (Produto i : produtos) {
                     if (esc.equals(i.cod)) {
                         produtos.remove(i);
@@ -161,8 +161,8 @@ public class Comercio {
                 if (!codigoexistente) {
 
                     System.out.println("ERRO: Esse codigo nao existe!\nDigite um codigo valido:");
-                    codigoexistente = false;
-                    menu();
+                }else{
+                    break;
                 }
             }
         }
@@ -182,9 +182,9 @@ public class Comercio {
                 i.imprimeProduto();
             }
             System.out.println("Digite o codigo do produto que deseja pesquisar: ");
+            boolean produtosExistem = false;
             while (true) {
                 String opt = sc.nextLine();
-                boolean produtosExistem = false;
                 for (Produto i : produtos) {
                     if (opt.equals(i.cod)) {
                         i.imprimeProduto();
@@ -193,11 +193,10 @@ public class Comercio {
                     }
                 }
                 if (!produtosExistem) {
-                    System.out.println("ERRO: Esse codigo nao existe!\nDigite um codigo valido:");
-                    produtosExistem = false;
-                    break;
+                    System.out.println("ERRO: Esse codigo nao existe!\nDigite um codigo valido:");                   
+                }else{
+                    break; //Saia do loop se o novo codigo digitado for encontrado
                 }
-                break;
             }
         }
     }
