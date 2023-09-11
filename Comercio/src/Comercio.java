@@ -23,19 +23,49 @@ public class Comercio {
                 sc.nextLine();
                 switch (escolha) {
                     case 1:
-                        listar();
+                        if (produtos.isEmpty()) {
+                    System.out.println("\nNenhum produto foi adicionado ainda!\nAdicione produtos para que eles fiquem " +
+                                        "disponiveis para vizualicao nessa aba!");
+                    } else {
+                    System.out.println("\nAqui esta uma lista de todos os produtos que existem dentro do sistema: ");
+                    listar();
+                    }
                         break;
                     case 2:
                         System.out.println(
                                 "\nAdicione produtos ao sistema inserindo as informacoes solicitadas abaixo: \n");
                         adicionar();
                         break;
+
+
                     case 3:
-                        remover();
-                        break;
+                    if (produtos.isEmpty()) {
+                    System.out.println("\nNenhum produto foi adicionado ainda!\n");
+                    } else {
+                    System.out.println("\nAqui esta uma lista de todos os produtos que existem dentro do sistema: ");}
+                    for (Produto i : produtos) {
+                        i.imprimeProduto();
+                    }
+                    System.out.println("Digite o codigo do produto que deseja remover: ");
+                    String esc = sc.nextLine();
+                    boolean codigoexistente = false;
+                    remover(esc, codigoexistente);
+                    break;
+
+
                     case 4:
-                        pesquisar();
+                        if (produtos.isEmpty()) {
+                        System.out.println("\nNenhum produto foi adicionado ainda!\n");
+                        } else {
+                        System.out.println("\nAqui esta uma lista de todos os produtos que existem dentro do sistema: ");
+                        listar();}
+                        System.out.println("Digite o codigo do produto que deseja pesquisar: ");
+                        esc = sc.nextLine();
+                        boolean codigoExistente = false;
+                        pesquisar(esc, codigoExistente);
                         break;
+
+
                     case 5:
                         System.out.println("Saindo do sistema...");
                         System.exit(0);
@@ -126,73 +156,63 @@ public class Comercio {
     }
 
     public static void listar() {
-        if (produtos.isEmpty()) {
-            System.out.println("\nNenhum produto foi adicionado ainda!\nAdicione produtos para que eles fiquem " +
-                    "disponiveis para vizualicao nessa aba!");
-        } else {
-            System.out.println("\nAqui esta uma lista de todos os produtos que existem dentro do sistema: ");
-            for (Produto i : produtos) {
-                i.imprimeProduto();
-            }
+        for (Produto i : produtos) {
+            i.imprimeProduto();
         }
     }
 
-    public static void remover() {
-        if (produtos.isEmpty()) {
-            System.out.println("\nNenhum produto foi adicionado ainda!\n");
-        } else {
-            System.out.println("\nAqui esta uma lista de todos os produtos que existem dentro do sistema: ");
-            for (Produto i : produtos) {
-                i.imprimeProduto();
-            }
-            System.out.println("Digite o codigo do produto que deseja remover: ");
-            String esc;
-                            boolean codigoexistente = false;
+    public static void remover(String esc, boolean codigoExistente) {
+        // if (produtos.isEmpty()) {
+        //     System.out.println("\nNenhum produto foi adicionado ainda!\n");
+        // } else {
+        //     System.out.println("\nAqui esta uma lista de todos os produtos que existem dentro do sistema: ");
+        //     for (Produto i : produtos) {
+        //         i.imprimeProduto();
+        //     }
+        //     System.out.println("Digite o codigo do produto que deseja remover: ");
+        //     String esc;
+        //                     boolean codigoexistente = false;
             while (true) {
-                esc = sc.nextLine();
                 for (Produto i : produtos) {
                     if (esc.equals(i.cod)) {
                         produtos.remove(i);
                         System.out.println("\nProduto removido com sucesso!\n");
-                        codigoexistente = true;
+                        codigoExistente = true;
                         break;
                     }
                 }
-                if (!codigoexistente) {
-
+                if (!codigoExistente) {
                     System.out.println("ERRO: Esse codigo nao existe!\nDigite um codigo valido:");
                 }else{
                     break;
                 }
             }
         }
-    }
 
-    public static void pesquisar() {
+    public static void pesquisar(String esc, boolean codigoexistente) {
         // System.out.println("Como desejas pesquisar por seu produto?\n1- Codigo\n2-
         // Inicial\n3- Valor");
         // int opcao = sc.nextInt();
         // sc.nextLine();
 
-        if (produtos.isEmpty()) {
-            System.out.println("\nNenhum produto foi adicionado ainda!\n");
-        } else {
-            System.out.println("\nAqui esta uma lista de todos os produtos que existem dentro do sistema: ");
-            for (Produto i : produtos) {
-                i.imprimeProduto();
-            }
-            System.out.println("Digite o codigo do produto que deseja pesquisar: ");
-            boolean produtosExistem = false;
+        // if (produtos.isEmpty()) {
+        //     System.out.println("\nNenhum produto foi adicionado ainda!\n");
+        // } else {
+        //     System.out.println("\nAqui esta uma lista de todos os produtos que existem dentro do sistema: ");
+        //     for (Produto i : produtos) {
+        //         i.imprimeProduto();
+        //     }
+        //     System.out.println("Digite o codigo do produto que deseja pesquisar: ");
+        //     boolean produtosExistem = false;
             while (true) {
-                String opt = sc.nextLine();
                 for (Produto i : produtos) {
-                    if (opt.equals(i.cod)) {
+                    if (esc.equals(i.cod)) {
                         i.imprimeProduto();
-                        produtosExistem = true;
+                        codigoexistente = true;
                         break;
                     }
                 }
-                if (!produtosExistem) {
+                if (!codigoexistente) {
                     System.out.println("ERRO: Esse codigo nao existe!\nDigite um codigo valido:");                   
                 }else{
                     break; //Saia do loop se o novo codigo digitado for encontrado
@@ -200,4 +220,4 @@ public class Comercio {
             }
         }
     }
-}
+
