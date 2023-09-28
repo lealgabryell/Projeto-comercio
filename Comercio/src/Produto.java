@@ -3,6 +3,7 @@ public class Produto {
     String modelo;
     float valor;
     int estoque;
+    String validade;
 
     public void setEstoque(int estoque){
         this.estoque = estoque;
@@ -39,5 +40,6 @@ public class Produto {
     public void imprimeProduto(){
         System.out.println(getModelo() + "  |  R$" + getValor() + "  |  " + getCodigo() + "  |  " + getEstoque() + " em estoque");
     }
+    
 
 }
